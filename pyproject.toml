@@ -3,13 +3,23 @@ name = "mlops-lab"
 version = "0.1.0"
 description = "explore ml ops"
 authors = [
-    {name = "Daniel",email = "74949792+ductran999@users.noreply.github.com"}
+    {name = "ductran999"}
 ]
 license = {text = "MIT"}
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.13,<4.0"
 dependencies = [
-    "mlflow (>=3.9.0,<4.0.0)"
+    "mlflow (>=3.9.0,<4.0.0)",
+    "google-genai (>=3.0.0,<4.0.0)",
+    "python-dotenv (>=1.2.4,<2.0.0)",
+    "langchain (>=1.4.9,<2.0.0)",
+    "langchain-google-genai (>=4.4.3,<5.0.0)",
+    "langchain-text-splitters (>=1.1.3,<2.0.0)",
+    "fastapi (>=0.162.2,<0.163.0)",
+    "uvicorn[standard] (>=0.54.0,<0.55.0)",
+    "pydantic-settings (>=2.16.2,<3.0.0)",
+    "psycopg[binary] (>=3.3.8,<4.0.0)",
+    "matplotlib (>=3.11.2,<4.0.0)",
 ]
 
 [tool.poetry]
