@@ -1,2 +1,5 @@
 .venv
 .env
+# MLflow local traces & generated charts
+mlruns/
+data/charts/
