@@ -1,10 +1,12 @@
 from google import genai
 
+
 def read_markdown(file_path):
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         return f.read()
 
-content =  read_markdown("./company.md")
+
+content = read_markdown("./company.md")
 
 
 client = genai.Client()

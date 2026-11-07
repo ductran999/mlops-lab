@@ -4,7 +4,7 @@ model_path = "sensor_model.onnx"
 model = onnx.load(model_path)
 graph = model.graph
 
-print(f"--- Inspect ONNX model ---")
+print("--- Inspect ONNX model ---")
 
 for input in graph.input:
     shape = []

@@ -1,7 +1,8 @@
-import mlflow
 import os
-import time
 import random
+import time
+
+import mlflow
 from dotenv import load_dotenv
 from mlflow.tracking import MlflowClient
 
@@ -9,6 +10,7 @@ load_dotenv(override=True)
 
 tracking_uri = os.getenv("MLFLOW_TRACKING_URI")
 mlflow.set_tracking_uri(tracking_uri)
+
 
 def run_check():
     print("[INFO] Starting connection check...")
@@ -19,7 +21,7 @@ def run_check():
     existing_exp = client.get_experiment_by_name(experiment_name)
 
     if existing_exp:
-        if existing_exp.lifecycle_stage == 'deleted':
+        if existing_exp.lifecycle_stage == "deleted":
             client.restore_experiment(existing_exp.experiment_id)
 
     mlflow.set_experiment(experiment_name)
@@ -36,7 +38,7 @@ def run_check():
         # Step 3: Test Upload File (Test MinIO S3)
         filename = "test_artifact.txt"
 
-        with open(filename, "w", encoding='utf-8') as f:
+        with open(filename, "w", encoding="utf-8") as f:
             f.write("This is a test file for MinIO connection.\n")
             f.write(f"Timestamp: {time.time()}")
 
@@ -53,6 +55,7 @@ def run_check():
     print("\n[DONE] CHECK COMPLETE!")
     print("-> Go to http://localhost:5000 to view results.")
     print("-> Go to http://localhost:9001 (Bucket: mlflow-bucket) to view files.")
+
 
 if __name__ == "__main__":
     run_check()
