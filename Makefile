@@ -10,3 +10,14 @@ help: ## Show help for each of the Makefile commands
 
 healthcheck: ## check infra is ready
 	@python ./scripts/check_infra.py
+
+format: ## auto-format code (ruff format + lint --fix)
+	@poetry run ruff check --fix .
+	@poetry run ruff format .
+
+lint: ## check code without modifying (ruff check + format --check)
+	@poetry run ruff check .
+	@poetry run ruff format --check .
+
+hooks: ## run all pre-commit hooks on every file
+	@poetry run pre-commit run --all-files
