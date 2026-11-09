@@ -21,3 +21,5 @@ lint: ## check code without modifying (ruff check + format --check)
 
 hooks: ## run all pre-commit hooks on every file
 	@poetry run pre-commit run --all-files
+
+check: lint hooks ## run all checks: ruff lint + format --check + pre-commit hooks
