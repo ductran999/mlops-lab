@@ -10,11 +10,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-# Paths are anchored to this file so the script runs from any cwd.
-#   parent        = src/rag_basic
-#   parents[1]    = src            -> company.md lives here
-#   parents[2]    = project root   -> .env lives here
-DOC_PATH = Path(__file__).resolve().parents[1] / "company.md"
+DOC_PATH = Path(__file__).resolve().parents[1] / "docs/company.md"
 ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
 
 MODEL = "gemini-3.5-flash-lite"
@@ -22,7 +18,7 @@ MODEL = "gemini-3.5-flash-lite"
 
 def main() -> None:
     load_dotenv(ENV_PATH)
-    api_key = os.environ["API_KEY"]
+    api_key = os.environ["GOOGLE_API_KEY"]
 
     content = DOC_PATH.read_text(encoding="utf-8")
 

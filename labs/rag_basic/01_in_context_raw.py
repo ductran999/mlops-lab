@@ -21,19 +21,12 @@ def read_markdown(file_path) -> str:
         return f.read()
 
 
-def infer(question: str, ref_doc: str) -> str:
+def infer(client: genai.Client, question: str, ref_doc: str) -> str:
     """Infer an answer to a question based on the provided document content."""
 
-    g_api_key = os.getenv("GOOGLE_API_KEY")
-
-    if not g_api_key:
-        raise ValueError("Environment variable 'GOOGLE_API_KEY' is not set")
-
-    client = genai.Client(api_key=g_api_key)
-
     prompt = f"""
-    Answer language same as the question. If the answer is not in the document, say "I don't know".
     You are a smart assistant. The following is an internal document of the company:
+    Answer language same as the question. If the answer is not in the document, say "I don't know".
     -----------------
     {ref_doc}
     -----------------
@@ -52,10 +45,15 @@ def infer(question: str, ref_doc: str) -> str:
 def main() -> None:
     load_dotenv(ENV_PATH)
 
+    API_KEY = os.getenv("GOOGLE_API_KEY")
+    if not API_KEY:
+        raise ValueError("Environment variable 'GOOGLE_API_KEY' is not set")
+
+    client = genai.Client(api_key=API_KEY)
     content = read_markdown(DOC_PATH)
     question = input("Your question: ")
 
-    answer = infer(question, content)
+    answer = infer(client, question, content)
     print(answer)
 
 
