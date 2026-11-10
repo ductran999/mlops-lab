@@ -1,24 +1,29 @@
 # RAG basic lab
 
-So sánh 2 cách cấp ngữ cảnh cho LLM trên cùng một tài liệu (`src/company.md`):
+Compare ways of supplying context to an LLM over the same document
+(`docs/company.md`), numbered in learning order:
 
-| Script             | Chiến lược                                          | Ý nghĩa                                                          |
-| ------------------ | --------------------------------------------------- | ---------------------------------------------------------------- |
-| `01_in_context.py` | Nhét cả tài liệu vào prompt                         | In-context learning cơ bản; token cost tăng theo độ dài tài liệu |
-| `02_rag_basic.py`  | Split -> embed -> index -> retrieve -> inject chunk | RAG basic; chỉ gửi đoạn liên quan tới câu hỏi                    |
+| Script                       | Strategy                                            | Lesson                                                           |
+| ---------------------------- | --------------------------------------------------- | ---------------------------------------------------------------- |
+| `01_in_context_raw.py`       | Stuff the whole document into the prompt (raw SDK)  | Basic in-context learning; token cost grows with document length |
+| `02_in_context_langchain.py` | Same strategy, using LangChain                      | Raw SDK vs abstraction; `response.text` vs `.content`            |
+| `03_rag_basic.py`            | Split -> embed -> index -> retrieve -> inject chunk | Basic RAG; only relevant chunks are sent per request             |
 
-## Chạy
+## Run
 
 ```bash
 cd /home/danny/Study/side-project/mlops-lab
-printf 'Chính sách làm việc như thế nào?\n' | poetry run python src/rag_basic/01_in_context.py
-printf 'Chính sách làm việc như thế nào?\n' | poetry run python src/rag_basic/02_rag_basic.py
+printf 'Chính sách làm việc như thế nào?\n' | poetry run python labs/rag_basic/01_in_context_raw.py
+printf 'Chính sách làm việc như thế nào?\n' | poetry run python labs/rag_basic/02_in_context_langchain.py
+printf 'Chính sách làm việc như thế nào?\n' | poetry run python labs/rag_basic/03_rag_basic.py
 ```
 
-Hai script đều dùng model `gemini-3.5-flash-lite` và API key trong `.env` (`API_KEY`).
+Every script anchors its paths to `__file__`, so they run from any cwd.
+The API key is read from `.env` at the project root.
 
-## Bước tiếp theo
+## Next steps
 
-- Dùng vector store có persistence (Chroma) thay vì `InMemoryVectorStore`.
-- Thêm embedding query riêng với `task_type='RETRIEVAL_QUERY'` và document với `RETRIEVAL_DOCUMENT`.
-- Thay shared doc bằng corpus lớn hơn để thấy rõ lợi ích của retrieval.
+- Use a vector store with persistence (Chroma) instead of `InMemoryVectorStore`.
+- Separate embedding tasks: `task_type='RETRIEVAL_QUERY'` for queries and
+  `'RETRIEVAL_DOCUMENT'` for documents.
+- Replace the shared doc with a larger corpus to make retrieval pay off.
