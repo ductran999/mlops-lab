@@ -3,3 +3,6 @@
 # MLflow local traces & generated charts
 mlruns/
 data/charts/
+
+.vscode/
+__pycache__/
