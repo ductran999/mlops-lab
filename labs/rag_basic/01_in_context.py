@@ -12,7 +12,7 @@ from google import genai
 
 DOC_PATH = Path(__file__).resolve().parents[0] / "docs/company.md"
 ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
-MODEL = "gemini-3.5-flash-lite"
+CHAT_MODEL = "gemini-3.5-flash-lite"
 
 
 def read_markdown(file_path) -> str:
@@ -36,7 +36,7 @@ def infer(client: genai.Client, question: str, ref_doc: str) -> str:
     """
 
     response = client.interactions.create(
-        model=MODEL,
+        model=CHAT_MODEL,
         input=prompt,
     )
     return response.output_text
