@@ -25,3 +25,4 @@ The API key is read from `.env` at the project root.
 
 - [02: Embeddings](02_embeddings.md)
 - [03: Chunking](03_chunking.md)
+- [04: In-context with LangChain (baseline)](04_in_context_langchain.md)

@@ -10,7 +10,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-DOC_PATH = Path(__file__).resolve().parents[1] / "docs/company.md"
+DOC_PATH = Path(__file__).resolve().parents[0] / "docs/company.md"
 ENV_PATH = Path(__file__).resolve().parents[2] / ".env"
 
 MODEL = "gemini-3.5-flash-lite"
@@ -24,19 +24,19 @@ def main() -> None:
 
     llm = ChatGoogleGenerativeAI(model=MODEL, api_key=api_key)
 
-    question = input("Nhập câu hỏi của bạn: ")
+    question = input("Your question: ")
 
-    prompt = f"""Bạn là một trợ lý ảo thông minh. Dưới đây là tài liệu nội bộ của công ty:
+    prompt = f"""You are an internal assistant. The following are relevant excerpts from the company document:
 -----------------
 {content}
 -----------------
-
-Dựa vào tài liệu trên, hãy trả lời câu hỏi sau một cách chính xác:
-Câu hỏi: {question}
+Based on the excerpts above, please answer the question. If there is not enough information, please say you did not find the information in the document.
+Question: {question}
 """
-
     response = llm.invoke(prompt)
+
     print(response.text)
+    print(response.usage_metadata)
 
 
 if __name__ == "__main__":
